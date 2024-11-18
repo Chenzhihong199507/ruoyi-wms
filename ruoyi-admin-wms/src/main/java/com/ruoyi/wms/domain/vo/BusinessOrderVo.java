@@ -5,7 +5,8 @@ import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
 import io.github.linpeilie.annotations.AutoMapper;
-
+import com.ruoyi.common.excel.annotation.ExcelDictFormat;
+import com.ruoyi.common.excel.convert.ExcelDictConvert;
 import java.io.Serializable;
 import java.io.Serial;
 import java.util.List;
@@ -39,13 +40,15 @@ public class BusinessOrderVo implements Serializable {
     /**
      * 订单类型
      */
-    @ExcelProperty(value = "订单类型")
+    @ExcelProperty(value = "订单类型", converter = ExcelDictConvert.class)
+    @ExcelDictFormat(dictType = "order_type")
     private String type;
 
     /**
      * 订单状态
      */
-    @ExcelProperty(value = "订单状态")
+    @ExcelProperty(value = "订单状态", converter = ExcelDictConvert.class)
+    @ExcelDictFormat(dictType = "order_status")
     private String status;
 
     /**

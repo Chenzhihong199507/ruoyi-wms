@@ -15,5 +15,12 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface BusinessOrderMapper extends BaseMapperPlus<BusinessOrder, BusinessOrderVo> {
     Page<BusinessOrderVo> selectOrderList(Page<BusinessOrderVo> page, @Param("bo") BusinessOrderBo bo);
+
     int SelectOrderCount(@Param("bo") BusinessOrderBo bo);
+
+    void updateOrderStatus(@Param("bo") BusinessOrderBo bo);
+
+    BusinessOrderVo selectOrderDetail(String id); // 获取订单详情
+
+    void updateOrderItem(@Param("bo") BusinessOrderBo bo); // 更新订单信息
 }

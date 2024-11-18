@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="type" column="type" />
         <result property="image" column="image" />
         <result property="price" column="price" />
-        <result property="quantity" column="quantity" />
+        <result property="quantityRequired" column="quantity_required" />
         <result property="labelOption" column="label_option" />
     </resultMap>
 
@@ -37,7 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectMerchandiseList" resultMap="MerchandiseResMap">
         select
-            om.quantity,
+            om.quantity_required,
             m.*,
             m.id as m_id,
             om.label_option
@@ -73,4 +73,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             </if>
         </where>
     </select>
+    <select id="selectOrderDetail" resultMap="OrderResMap">
+        select o.*, o.id as order_id
+        from business_order o
+        where o.id = #{id}
+    </select>
+    <update id="updateOrderStatus">
+        update `business_order` set
+            status = #{bo.status}
+        where id = #{bo.id}
+    </update>
 </mapper>

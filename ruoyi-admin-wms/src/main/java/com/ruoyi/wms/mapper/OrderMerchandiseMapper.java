@@ -1,5 +1,6 @@
 package com.ruoyi.wms.mapper;
 
+import com.ruoyi.wms.domain.bo.NewOrderBo;
 import com.ruoyi.wms.domain.bo.OrderMerchandiseBo;
 import com.ruoyi.wms.domain.entity.OrderMerchandise;
 import com.ruoyi.common.mybatis.core.mapper.BaseMapperPlus;
@@ -12,4 +13,5 @@ import com.ruoyi.common.mybatis.core.mapper.BaseMapperPlus;
  */
 public interface OrderMerchandiseMapper extends BaseMapperPlus<OrderMerchandise, OrderMerchandiseBo> {
 
+    void deleteByOrderId(NewOrderBo bo);
 }

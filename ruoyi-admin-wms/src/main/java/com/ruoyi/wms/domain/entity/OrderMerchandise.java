@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import com.ruoyi.common.mybatis.core.domain.BaseEntity;
 
-
 import java.io.Serial;
 import java.io.Serializable;
 
@@ -21,7 +20,7 @@ import java.io.Serializable;
 public class OrderMerchandise implements Serializable {
 
     @Serial
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      *
@@ -39,7 +38,7 @@ public class OrderMerchandise implements Serializable {
     /**
      * 需求数量
      */
-    private String quantity;
+    private String quantityRequired;
     /**
      * 选项
      */

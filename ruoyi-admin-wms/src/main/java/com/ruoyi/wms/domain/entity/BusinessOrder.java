@@ -4,10 +4,11 @@ import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import com.ruoyi.common.mybatis.core.domain.BaseEntity;
-
+import com.ruoyi.wms.domain.bo.OrderMerchandiseBo;
 
 import java.io.Serial;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * 订单表对象 order
@@ -21,7 +22,7 @@ import java.math.BigDecimal;
 public class BusinessOrder extends BaseEntity {
 
     @Serial
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      *
@@ -44,9 +45,11 @@ public class BusinessOrder extends BaseEntity {
      * 备注
      */
     private String remark;
-
     /**
      * 订单总额
      */
     private BigDecimal totalAmount;
+
+    @TableField(exist = false)
+    private List<OrderMerchandiseBo> merchandises;
 }

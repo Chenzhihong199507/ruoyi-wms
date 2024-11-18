@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.ruoyi.wms.domain.bo.BusinessOrderBo;
 import com.ruoyi.wms.mapper.BusinessOrderMapper;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -36,8 +37,8 @@ public class BusinessOrderService {
     /**
      * 查询订单表
      */
-    public BusinessOrderVo queryById(String id){
-        return businessOrderMapper.selectVoById(id);
+    public BusinessOrderVo queryById(String id) {
+        return businessOrderMapper.selectOrderDetail(id);
     }
 
     /**
@@ -89,6 +90,26 @@ public class BusinessOrderService {
      * 修改订单表
      */
     public void updateByBo(NewOrderBo bo) {
+        BusinessOrder update = MapstructUtils.convert(bo, BusinessOrder.class);
+        businessOrderMapper.updateById(update);
+    }
+
+    /**
+     * 修改订单状态
+     */
+    public void updateOrderStatus(BusinessOrderBo bo) {
+        businessOrderMapper.updateOrderStatus(bo);
+    }
+
+    /**
+     * 修改订单中商品
+     */
+    public void updateOrderItem(NewOrderBo bo) {
+        orderMerchandiseService.deleteByBo(bo);
+        bo.getMerchandises().forEach(merchandise -> {
+            merchandise.setOrderId(bo.getId());
+            orderMerchandiseService.insertByBo(merchandise);
+        });
         BusinessOrder update = MapstructUtils.convert(bo, BusinessOrder.class);
         businessOrderMapper.updateById(update);
     }

@@ -90,11 +90,12 @@ public class MerchandiseVo implements Serializable {
      * 数量
      */
     @ExcelProperty(value = "数量")
-    private String quantity;
+    private String quantityRequired;
 
     /**
      * 选项
      */
-    @ExcelProperty(value = "选项")
+    @ExcelProperty(value = "标签选项")
+    @ExcelDictFormat(dictType = "label_option")
     private String labelOption;
 }

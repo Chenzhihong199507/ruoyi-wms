@@ -38,19 +38,19 @@ public class BusinessOrderController extends BaseController {
 
     private final BusinessOrderService orderService;
 
-//    /**
-//     * 查询订单表列表
-//     */
-//    @SaCheckPermission("wms:order:list")
-//    @GetMapping("/list")
-//    public TableDataInfo<OrderVo> list(OrderBo bo, PageQuery pageQuery) {
-//        return orderService.queryPageList(bo, pageQuery);
-//    }
+    // /**
+    // * 查询订单表列表
+    // */
+    // @SaCheckPermission("wms:order:list")
+    // @GetMapping("/list")
+    // public TableDataInfo<OrderVo> list(OrderBo bo, PageQuery pageQuery) {
+    // return orderService.queryPageList(bo, pageQuery);
+    // }
 
     @SaIgnore
     @GetMapping("/list")
     public TableDataInfo<BusinessOrderVo> lists(BusinessOrderBo bo, PageQuery pageQuery) {
-        return  orderService.OrderList(bo, pageQuery);
+        return orderService.OrderList(bo, pageQuery);
     }
 
     /**
@@ -71,8 +71,7 @@ public class BusinessOrderController extends BaseController {
      */
     @SaCheckPermission("wms:order:query")
     @GetMapping("/{id}")
-    public R<BusinessOrderVo> getInfo(@NotNull(message = "主键不能为空")
-                                     @PathVariable String id) {
+    public R<BusinessOrderVo> getInfo(@NotNull(message = "主键不能为空") @PathVariable String id) {
         return R.ok(orderService.queryById(id));
     }
 
@@ -101,6 +100,30 @@ public class BusinessOrderController extends BaseController {
     }
 
     /**
+     * 修改订单状态
+     */
+    @SaCheckPermission("wms:order:edit")
+    @Log(title = "订单表", businessType = BusinessType.UPDATE)
+    @RepeatSubmit()
+    @PutMapping("/editStatus")
+    public R<Void> edits(@Validated(EditGroup.class) @RequestBody BusinessOrderBo bo) {
+        orderService.updateOrderStatus(bo);
+        return R.ok();
+    }
+
+    /**
+     * 修改订单中商品
+     */
+    @SaCheckPermission("wms:order:edit")
+    @Log(title = "订单表", businessType = BusinessType.UPDATE)
+    @RepeatSubmit()
+    @PutMapping("/updateItems")
+    public R<Void> editItem(@Validated(EditGroup.class) @RequestBody NewOrderBo bo) {
+        orderService.updateOrderItem(bo);
+        return R.ok();
+    }
+
+    /**
      * 删除订单表
      *
      * @param ids 主键串
@@ -108,8 +131,7 @@ public class BusinessOrderController extends BaseController {
     @SaCheckPermission("wms:order:remove")
     @Log(title = "订单表", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
-    public R<Void> remove(@NotEmpty(message = "主键不能为空")
-                          @PathVariable String[] ids) {
+    public R<Void> remove(@NotEmpty(message = "主键不能为空") @PathVariable String[] ids) {
         orderService.deleteByIds(List.of(ids));
         return R.ok();
     }
